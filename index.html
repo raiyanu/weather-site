@@ -5,11 +5,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/font.css">
 </head>
 
 <body>
-    <h1>Weather Project</h1>
-    <script type="module" src="./js/main.js"></script>
+    <div class="container">
+        <div class="weather-card">
+            <div class="wrapper">
+                <div class="weather-card-media">
+                    <div class="top-content">
+                        <p>Weather-ForeCast</p>
+                        <div class="current-location">
+                            <img src="./assets/location.svg" alt="L">
+                            <div class="current-location-text">
+                                <p>Current Location</p>
+                                <h2>Chennai, Tamil Nadu</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <h3>The Only Weather Forecast You Need</h3>
+                        <hr>
+                        <div class="search-form">
+                            <input type="text" name="location" id="location">
+                            <img src="./assets/magnifying-glass.svg" alt="search-icon">
+                        </div>
+                    </div>
+                </div>
+                <div class="weather-card-detail">
+                    <h2>Today</h2>
+                    <div class="weather-main-detail">
+                        <div class="left-set">
+                            <h3>32</h3>
+                            <div>
+                                <p id="weather-word-condition">Sunny</p>
+                                <img src="" alt="Weather current icon">
+                            </div>
+                            <p id="data">Monday 27, July '20</p>
+                        </div>
+                        <div class="right-set">
+                            <dl>
+                                <p>RealFeel</p>
+                                <p>37</p>
+                            </dl>
+                            <dl>
+                                <p>Humidity:</p>
+                                <p>66%</p>
+                            </dl>
+                            <dl>
+                                <p>Uv Index:</p>
+                                <p>0 Low</p>
+                            </dl>
+                            <dl>
+                                <p>Cloud Cover:</p>
+                                <p>5 Km</p>
+                            </dl>
+                            <dl>
+                                <p>RealFeel</p>
+                                <p>37</p>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

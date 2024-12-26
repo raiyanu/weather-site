@@ -5,57 +5,42 @@ export default class Weather {
     getApi(location) {
         return `http://api.weatherapi.com/v1/current.json?key=${this.getApiKey()}&q=${location}`
     }
-    constructor() {
-        // fetch(`https://api.tomorrow.io/v4/weather/forecast?location=deLhi&apikey=${this.getApiKey()}`);
-    }
-    test() {
+    constructor() { }
+
+    async test() {
         console.log("test");
-        this.getLocation(this.getUserCordinate());
+        this.fetchWeather(await this.getUserCordinate());
     }
-    async getLocation(location) {
+    async fetchWeather(location) {
         const res = await fetch(this.getApi(location));
         const data = await res.json();
         console.log(data);
     }
-    getUserCordinate() {
-        return new Promise((resolve, reject) => {
-            if ('permissions' in navigator) {
-                navigator.permissions.query({ name: 'geolocation' })
-                    .then(function (permissionStatus) {
-                        console.log('Geolocation permission state is: ', permissionStatus.state);
-                        if (permissionStatus.state === 'granted') {
-                            console.log('Permission granted, you can access location');
-                            navigator.geolocation.getCurrentPosition((p) => {
-                                const location = `${p.coords.latitude},${p.coords.longitude}`;
-                                console.log(location);
-                                resolve(location);
-                            }, (error) => {
-                                console.error('Error getting location:', error);
-                                reject('Error getting location');
-                            });
-                        } else if (permissionStatus.state === 'denied') {
-                            console.log('Permission denied');
-                            reject('Permission denied');
-                        } else if (permissionStatus.state === 'prompt') {
-                            console.log('Permission prompt is pending');
-                            navigator.geolocation.getCurrentPosition((p) => {
-                                const location = `${p.coords.latitude},${p.coords.longitude}`;
-                                console.log(location);
-                                resolve(location);
-                            }, (error) => {
-                                console.error('Error getting location:', error);
-                                reject('Error getting location');
-                            });
-                        }
-                    })
-                    .catch(function (error) {
-                        console.error('Permission query failed:', error);
-                        reject('Permission query failed');
+    async getUserCordinate() {
+        let userLocation;
+        if ('permissions' in navigator) {
+            try {
+                const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+                console.log('Geolocation permission state is: ', permissionStatus.state);
+                if (permissionStatus.state === 'granted') {
+                    console.log('Permission granted, you can access location');
+                    const position = await new Promise((resolve, reject) => {
+                        navigator.geolocation.getCurrentPosition(resolve, reject);
                     });
-            } else {
-                console.log('Permissions API is not supported in this browser');
-                reject('Permissions API is not supported in this browser');
+                    console.log(`${position.coords.latitude} : ${position.coords.longitude}`);
+                    userLocation = `${position.coords.latitude},${position.coords.longitude}`;
+                    console.log("location grabbed");
+                } else if (permissionStatus.state === 'denied') {
+                    console.error('Permission denied');
+                } else if (permissionStatus.state === 'prompt') {
+                    console.log('Permission prompt is pending');
+                }
+            } catch (error) {
+                console.error('Permission query failed:', error);
             }
-        });
+            console.log("User Location the one grabbed :", userLocation);
+        } else {
+        }
+        return userLocation ? userLocation : `12.9333,78.7167`;
     }
 }
