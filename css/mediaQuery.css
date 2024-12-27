@@ -1,0 +1,116 @@
+@media screen and (max-width: 460px) {
+	.top-content {
+		flex-direction: column;
+		gap: 1.5rem;
+		justify-content: flex-end;
+	}
+	.weather-main-detail {
+		padding-block: 2rem;
+	}
+	.highlight-card {
+		flex-direction: column;
+		height: fit-content;
+		padding-block: 2rem;
+	}
+	.highlight-card hr {
+		max-height: 2px;
+		min-width: 200px;
+		margin-block: 0.5rem;
+	}
+	.right-set {
+		gap: 5px;
+		flex: 1 0 auto;
+		min-width: 80%;
+	}
+}
+
+@media screen and (min-width: 460px) {
+	.right-set {
+		grid-template-columns: 1fr 1fr;
+	}
+	.right-set > dl {
+		gap: 12px;
+	}
+	.right-set > dl > p:nth-child(1) {
+		grid-column: 1 / 2;
+	}
+	.right-set > dl > p:nth-child(2) {
+		grid-column: 2 / 3;
+	}
+	.highlight-card {
+		margin-bottom: 0;
+	}
+	.weather-main-detail {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+	}
+	.weather-card-detail {
+		margin-top: 0;
+	}
+	.extra-detail {
+		min-width: fit-content;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+	.extra-detail > dl {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.weather-card-detail {
+		border-radius: 0px;
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	.container {
+		min-height: 100vh;
+		min-height: 100dvh;
+	}
+	.weather-card {
+		width: fit-content;
+		margin: auto;
+		border-radius: 10px;
+		overflow: hidden;
+		border: 1px solid rgba(128, 128, 128, 0.253);
+		box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+	}
+	.weather-card-media {
+		display: flex;
+		flex-direction: column;
+		min-width: 300px;
+		flex-basis: 100%;
+	}
+	.wrapper {
+		display: flex;
+		justify-content: center;
+	}
+
+	.highlight-card {
+		box-shadow: none;
+		margin-bottom: 1rem;
+		background-color: transparent;
+	}
+	.right-set {
+		width: 240px;
+	}
+	.extra-detail {
+		width: 300px;
+		flex-shrink: 1;
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
+	.extra-detail dl {
+		min-width: 100%;
+		flex-shrink: 0;
+		width: 200px;
+	}
+	.weather-card-detail {
+		padding: 1rem;
+	}
+}
