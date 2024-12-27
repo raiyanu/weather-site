@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/mediaQuery.css">
+    <link rel="stylesheet" href="./css/spinner.css">
 </head>
 
 <body>
@@ -21,84 +22,91 @@
                             <img src="./assets/location.svg" alt="L">
                             <div class="current-location-text">
                                 <p>Current Location</p>
-                                <h2>Chennai, Tamil Nadu</h2>
+                                <h2 id="current-location-text">Chennai, Tamil Nadu</h2>
                             </div>
                         </div>
                     </div>
                     <div class="main-content">
                         <h3>The Only Weather Forecast You Need</h3>
                         <hr>
-                        <div class="search-form">
+                        <form class="search-form">
                             <input type="text" name="location" id="ui_location_input" list="location_suggestions" />
                             <datalist style="background-color: red;" id="location_suggestions">
                             </datalist>
-                            <button><img src="./assets/magnifying-glass.svg" alt="search-icon"></button>
-                        </div>
+                            <input type="submit" value=""
+                                style="background-image: url('./assets/magnifying-glass.svg'); background-size: cover; width: 30px; height: 30px; border: none; cursor: pointer;">
+                        </form>
+                        <p id="helper-toast"></p>
                     </div>
                 </div>
                 <div class="weather-card-detail">
                     <h2>Today</h2>
                     <div class="weather-main-detail">
-                        <div class="highlight-card">
-                            <div class="left-set">
-                                <h3 id="ui-celsius">32°</h3>
-                                <div>
-                                    <p id="ui-word-condition">Sunny</p>
-                                    <img id="weather-icon-condition" src="./assets/weather-icon.svg" alt="icon">
-                                </div>
-                                <p id="ui-date">Monday 27, July '20</p>
+                        <div class="left-set">
+                            <h3 id="ui-celsius">32°</h3>
+                            <div>
+                                <p id="ui-word-condition">Sunny</p>
+                                <img id="weather-icon-condition" src="./assets/weather-icon.svg" alt="icon">
                             </div>
-                            <!-- <hr> -->
-                            <div class="right-set">
-                                <dl>
-                                    <p>RealFeel</p>
-                                    <p id="ui-feelslike">37</p>
-                                </dl>
-                                <dl>
-                                    <p>Humidity:</p>
-                                    <p id="ui-humidity">66%</p>
-                                </dl>
-                                <dl>
-                                    <p>Cloud Cover:</p>
-                                    <p id="ui-cloud-cover">5 Km</p>
-                                </dl>
-                                <dl>
-                                    <p>Wind Speed</p>
-                                    <p id="ui-wind-speed">11.4 mph</p>
-                                </dl>
-                                <!-- Pressure -->
-                                <dl>
-                                    <p>Pressure:</p>
-                                    <p id="ui-pressure">1014 mb</p>
-                                </dl>
-                                <!-- Wind Gusts -->
-                                <dl>
-                                    <p>Wind Gust:</p>
-                                    <p id="ui-wind-gust">16.4 mph</p>
-                                </dl>
-                                <!-- Visibility -->
-                                <dl>
-                                    <p>Visibility:</p>
-                                    <p id="ui-visibility">10 km</p>
-                                </dl>
-                                <!-- UV Index -->
-                                <dl>
-                                    <p>UV Index:</p>
-                                    <p id="ui-uv-index">1.5 Low</p>
-                                </dl>
-                                <!-- Weather Alert (optional, if available) -->
-                                <dl id="ui-weather-alert" style="display: none;">
-                                    <p>Weather Alert:</p>
-                                    <p id="alert-text"></p>
-                                </dl>
-                            </div>
+                            <p id="ui-date">Monday 27, July '20</p>
+                        </div>
+                        <!-- <hr> -->
+                        <div class="right-set">
+                            <dl>
+                                <p>RealFeel</p>
+                                <p id="ui-feelslike">37</p>
+                            </dl>
+                            <dl>
+                                <p>Humidity:</p>
+                                <p id="ui-humidity">66%</p>
+                            </dl>
+                            <dl>
+                                <p>Cloud Cover:</p>
+                                <p id="ui-cloud-cover">5 Km</p>
+                            </dl>
+                            <dl>
+                                <p>Wind Speed</p>
+                                <p id="ui-wind-speed">11.4 mph</p>
+                            </dl>
+                            <!-- Pressure -->
+                            <dl>
+                                <p>Pressure:</p>
+                                <p id="ui-pressure">1014 mb</p>
+                            </dl>
+                            <!-- Wind Gusts -->
+                            <dl>
+                                <p>Wind Gust:</p>
+                                <p id="ui-wind-gust">16.4 mph</p>
+                            </dl>
+                            <!-- Visibility -->
+                            <dl>
+                                <p>Visibility:</p>
+                                <p id="ui-visibility">10 km</p>
+                            </dl>
+                            <!-- UV Index -->
+                            <dl>
+                                <p>UV Index:</p>
+                                <p id="ui-uv-index">1.5 Low</p>
+                            </dl>
+                            <!-- Weather Alert (optional, if available) -->
+                            <dl id="ui-weather-alert" style="display: none;">
+                                <p>Weather Alert:</p>
+                                <p id="alert-text"></p>
+                            </dl>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="loader-container" id="loader">
+            <div class="loader">
+            </div>
+        </div>
     </div>
     <script type="module" src="./js/main.js"></script>
+    <script type="module">
+        import { getWeather } from "./js/main.js";
+    </script>
 </body>
 
 </html>

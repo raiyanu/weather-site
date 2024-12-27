@@ -27,6 +27,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	position: relative;
 }
 .weather-card {
 	width: 100%;
@@ -171,6 +172,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.073);
 }
 .left-set {
+	width: 100%;
 }
 
 .left-set h3 {
@@ -179,30 +181,27 @@ body {
 }
 .left-set > div {
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 }
+
 #weather-word-condition {
 	font-size: 26px;
 	font-weight: 300;
 }
 #weather-icon-condition {
-	height: 30px;
+	/* width: 100px; */
+	width: 40px;
 	margin-left: 10px;
 }
 
 .right-set {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
 	gap: 5px 40px;
-	max-width: 50%;
 	color: rgba(71, 71, 71, 0.696);
 }
 .right-set dl {
-	display: contents;
+	display: flex;
 }
-.right-set dl p:nth-child(1) {
-	grid-column: span 2;
-}
+
 .extra-detail {
 	margin-inline: auto;
 	min-width: 90%;

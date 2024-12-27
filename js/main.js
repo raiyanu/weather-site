@@ -51,24 +51,81 @@ let TempWeather = {
     }
 }
 
+function setLoading(toTurnOn) {
+    toTurnOn ? document.getElementById('loader').classList.add("show") : setTimeout(() => {
+        document.getElementById('loader').classList.remove("show")
+    }, 1000);
+}
+
+function showToast(message = "an error occured") {
+    let helper_toast = document.getElementById('helper-toast');
+    helper_toast.classList.add("show");
+    helper_toast.innerHTML = message;
+    setTimeout(() => {
+        helper_toast.classList.remove("show");
+        helper_toast.innerHTML = ""
+    }, 5000);
+}
+
+
+
+export async function getWeather(location) {
+    setLoading(true);
+    console.log("event : ", location);
+    if (location == "") {
+        showToast("Please, Enter your desired city name");
+        setLoading(false);
+        return;
+    }
+
+    let weatherInfo;
+    setLoading(true);
+
+    try {
+        weatherInfo = await weather.fetchWeather(location);
+    } catch (error) {
+        showToast("<em>Internal server Error </em>, try again later");
+        setLoading(false);
+    }
+    if (!(weatherInfo.current && weatherInfo.location)) {
+        showToast("<em>Internal server Error </em>, try again later or try refreshing the page");
+        return;
+    }
+
+    updateUi(weatherInfo)
+    setLoading(false);
+}
+
 async function getUpdatedWeatherInfo(location) {
-    let weatherInfo =
-        await weather.fetchWeather(location);
-    updateUi(weatherInfo.current)
+    let weatherInfo = await weather.fetchWeather(location);
+    updateUi(weatherInfo)
 }
 
 async function updateUiBasedByUserLocation() {
-    let weatherInfo = await weather.fetchWeather(await weather.getUserCordinate());
+    let weatherInfo;
+    setLoading(true);
+    try {
+        weatherInfo = await weather.fetchWeather(await weather.getUserCordinate());
+    } catch (error) {
+        setLoading(false);
+    }
+    if (!(weatherInfo.current && weatherInfo.location)) {
+        alert("error");
+    }
+    console.log(weatherInfo);
     updateUi(weatherInfo);
-    alert('success')
+    setLoading(false);
+    // alert('success');
 }
 
 async function updateUi(weatherInfo) {
+
     try {
         document.getElementById("ui-celsius").innerHTML = `${Math.floor(weatherInfo.current.temp_c)}°`;
         document.getElementById("ui-word-condition").innerHTML = weatherInfo.current.condition.text;
         document.getElementById("ui-date").innerHTML = weather.formatDate(weatherInfo.current.last_updated);
-        document.getElementById("weather-icon-condition").src = `//cdn.weatherapi.com/weather/64x64/day/${weatherInfo.current.condition.icon.split('/').pop()}`;
+        let iconSize = '128';
+        document.getElementById("weather-icon-condition").src = `//cdn.weatherapi.com/weather/${iconSize}x${iconSize}/day/${weatherInfo.current.condition.icon.split('/').pop()}`;
         document.getElementById("ui-humidity").innerHTML = `${weatherInfo.current.humidity}%`;
         document.getElementById("ui-cloud-cover").innerHTML = `${weatherInfo.current.cloud}%`;
         document.getElementById("ui-wind-speed").innerHTML = `${Math.floor(weatherInfo.current.wind_mph)}mph ~ ${Math.floor(weatherInfo.current.wind_kph)}kph`;
@@ -77,6 +134,9 @@ async function updateUi(weatherInfo) {
         document.getElementById("ui-wind-gust").innerHTML = `${Math.floor(weatherInfo.current.gust_mph)}mph`;
         document.getElementById("ui-visibility").innerHTML = `${weatherInfo.current.vis_km}km`;
         document.getElementById("ui-uv-index").innerHTML = `${weatherInfo.current.uv} Low`;
+        document.getElementById("current-location-text").innerHTML = `${weatherInfo.location.name}, ${weatherInfo.location.region}`;
+        console.log(weatherInfo.location);
+
         if (weatherInfo.current.alerts && Array.isArray(weatherInfo.current.alerts) && weatherInfo.current.alerts.length > 0) {
             document.getElementById("ui-weather-alert").style.display = "block";
             document.getElementById("alert-text").innerHTML = weatherInfo.current.alerts[0].description;
@@ -85,7 +145,6 @@ async function updateUi(weatherInfo) {
         }
     } catch (error) {
         console.log(error);
-        alert(error.message);
     }
 
 
@@ -139,9 +198,19 @@ window.addEventListener('DOMContentLoaded', async () => {
         console.log('hey there');
         let suggestedCity = await weather.getCitySuggestion(document.getElementById('ui_location_input').value);
         let location_suggestions_el = document.getElementById('location_suggestions');
-        // location_suggestions_el.innerHTML = ''
+        location_suggestions_el.innerHTML = ''
         for (const city of suggestedCity) {
             location_suggestions_el.innerHTML += `<option>${city.name}, ${city.region}</option>`;
         }
+    });
+
+    const form = document.querySelector('.search-form');
+    form.addEventListener('submit', (event) => {
+        try {
+            event.preventDefault();
+        } catch (error) {
+            // console.log(error);
+        }
+        getWeather(event.target.location.value);  // Pass the event object to getWeather
     });
 })
