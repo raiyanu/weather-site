@@ -15,9 +15,13 @@ export default class Weather {
         const data = await res.json();
         console.log('data:', data)
         let suggestedLocation = [];
-        data.forEach(suggestedCity => {
-            suggestedLocation.push({ name: suggestedCity.name, region: suggestedCity.region })
-        });
+        try {
+            data.forEach(suggestedCity => {
+                suggestedLocation.push({ name: suggestedCity.name, region: suggestedCity.region })
+            });
+        } catch (error) {
+            return suggestedLocation;
+        }
         console.log('suggested location:', suggestedLocation)
         return suggestedLocation;
     }

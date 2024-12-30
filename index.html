@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/mediaQuery.css">
     <link rel="stylesheet" href="./css/spinner.css">
+    <link rel="stylesheet" href="./css/compass.css">
 </head>
 
 <body>
     <div class="container">
         <div class="weather-card">
             <div class="wrapper">
-                <div class="weather-card-media">
+                <div class="weather-card-media" id="bg-image">
                     <div class="top-content">
                         <a href="#">Weather-ForeCast</a>
                         <div class="current-location">
@@ -29,13 +30,15 @@
                     <div class="main-content">
                         <h3>The Only Weather Forecast You Need</h3>
                         <hr>
-                        <form class="search-form">
-                            <input type="text" name="location" id="ui_location_input" list="location_suggestions" />
-                            <datalist style="background-color: red;" id="location_suggestions">
-                            </datalist>
-                            <input type="submit" value=""
-                                style="background-image: url('./assets/magnifying-glass.svg'); background-size: cover; width: 30px; height: 30px; border: none; cursor: pointer;">
-                        </form>
+                        <div class="search-section">
+                            <form class="search-form">
+                                <input type="text" name="location" id="ui_location_input" autocomplete="off" />
+                                <input type="submit" value=""
+                                    style="background-image: url('./assets/magnifying-glass.svg'); background-size: cover; width: 30px; height: 30px; border: none; cursor: pointer;">
+                            </form>
+                            <div class="suggestions" id="location_suggestions">
+                            </div>
+                        </div>
                         <p id="helper-toast"></p>
                     </div>
                 </div>
@@ -43,50 +46,64 @@
                     <h2>Today</h2>
                     <div class="weather-main-detail">
                         <div class="left-set">
-                            <h3 id="ui-celsius">32°</h3>
+                            <h3 id="ui-celsius">°</h3>
                             <div>
-                                <p id="ui-word-condition">Sunny</p>
+                                <p id="ui-word-condition"></p>
                                 <img id="weather-icon-condition" src="./assets/weather-icon.svg" alt="icon">
                             </div>
-                            <p id="ui-date">Monday 27, July '20</p>
+                            <p id="ui-date"></p>
+                        </div>
+                        <div class="compass">
+                            <div class="compass-inner">
+                                <div class="north">N</div>
+                                <div class="east">E</div>
+                                <div class="west">W</div>
+                                <div class="south">S</div>
+                                <div class="main-arrow" id="ui-compass-arrow">
+                                    <div class="arrow-up"></div>
+                                    <div class="arrow-down"></div>
+                                </div>
+                            </div>
                         </div>
                         <!-- <hr> -->
                         <div class="right-set">
                             <dl>
-                                <p>RealFeel</p>
-                                <p id="ui-feelslike">37</p>
+                                <p> <img src="./assets/icon/temperature-feels-like.svg" class="data-icon"
+                                        alt="">RealFeel</p>
+                                <p id="ui-feelslike"></p>
                             </dl>
                             <dl>
-                                <p>Humidity:</p>
-                                <p id="ui-humidity">66%</p>
+                                <p><img src="./assets/icon/humadity.svg" class="data-icon" alt="">Humidity:</p>
+                                <p id="ui-humidity">%</p>
                             </dl>
                             <dl>
-                                <p>Cloud Cover:</p>
-                                <p id="ui-cloud-cover">5 Km</p>
+                                <p><img src="./assets/icon/cloudy.svg" class="data-icon" alt=""> Cloud Cover:</p>
+                                <p id="ui-cloud-cover">Km</p>
                             </dl>
                             <dl>
-                                <p>Wind Speed</p>
-                                <p id="ui-wind-speed">11.4 mph</p>
+                                <p><img src="./assets/icon/wind.svg" class="data-icon" alt="">Wind Speed</p>
+                                <p id="ui-wind-speed">mph</p>
                             </dl>
                             <!-- Pressure -->
                             <dl>
-                                <p>Pressure:</p>
-                                <p id="ui-pressure">1014 mb</p>
+                                <p><img src="./assets/icon/pressure.svg" class="data-icon" alt="">Pressure:</p>
+                                <p id="ui-pressure">mb</p>
                             </dl>
                             <!-- Wind Gusts -->
                             <dl>
-                                <p>Wind Gust:</p>
-                                <p id="ui-wind-gust">16.4 mph</p>
+                                <p><img src="./assets/icon/wind-stream.svg" class="data-icon" alt="">Wind Gust:</p>
+                                <p id="ui-wind-gust"> mph</p>
                             </dl>
                             <!-- Visibility -->
                             <dl>
-                                <p>Visibility:</p>
-                                <p id="ui-visibility">10 km</p>
+                                <p><img src="./assets/icon/image-brightness-contrast-visibility-icon.svg"
+                                        class="data-icon" alt="">Visibility:</p>
+                                <p id="ui-visibility"> km</p>
                             </dl>
                             <!-- UV Index -->
                             <dl>
-                                <p>UV Index:</p>
-                                <p id="ui-uv-index">1.5 Low</p>
+                                <p><img src="./assets/icon/uv.svg" class="data-icon" alt="">UV Index:</p>
+                                <p id="ui-uv-index"> Low</p>
                             </dl>
                             <!-- Weather Alert (optional, if available) -->
                             <dl id="ui-weather-alert" style="display: none;">
