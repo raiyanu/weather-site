@@ -3,10 +3,10 @@ export default class Weather {
         return "34768342301d4b8eb51120026242612";
     }
     getApi(location) {
-        return `http://api.weatherapi.com/v1/current.json?key=${this.getApiKey()}&q=${location}`;
+        return `https://api.weatherapi.com/v1/current.json?key=${this.getApiKey()}&q=${location}`;
     }
     getSuggestionApi(typedInput) {
-        return `http://api.weatherapi.com/v1/search.json?key=${this.getApiKey()}&q=${typedInput}`;
+        return `https://api.weatherapi.com/v1/search.json?key=${this.getApiKey()}&q=${typedInput}`;
     }
     constructor() { }
 

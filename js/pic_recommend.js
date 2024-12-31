@@ -9,6 +9,7 @@ export default function recommendPic(conditionText) {
         "patchy rain possible": "rainy.jpg",
         "patchy snow possible": "snowy.jpg",
         "patchy sleet possible": "snowy.jpg",
+        "patchy rain nearby": "rainy.jpg",
         "dust": "cloudy.jpg",
         "fog": "misty.jpg",
         "freezing fog": "misty.jpg",

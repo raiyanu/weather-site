@@ -5,18 +5,18 @@
 	width: var(--size);
 	border-radius: 50%;
 	position: relative;
-	background-color: rgb(194, 194, 194);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	border-radius: 150px;
+	background: linear-gradient(145deg, #dbdada, #f0f0f0);
+	box-shadow: 5px 5px 11px #b3afaf, -5px -5px 11px #ffffff;
 }
 .compass-inner {
-	background-color: white;
 	height: 95%;
 	width: 95%;
 	border-radius: 50%;
 	position: relative;
-	border: 2px solid rgba(92, 90, 90, 0.24);
 }
 .main-arrow,
 .north,
@@ -60,6 +60,8 @@
 	flex-direction: column;
 	transform-origin: center;
 	transform: translateX(-50%) translateY(-50%) rotate(var(--rotation));
+	transition: all 1.5s ease-in-out;
+	transition-delay: 1.5s;
 }
 .arrow-down,
 .arrow-up {
@@ -71,8 +73,8 @@
 }
 
 .arrow-up {
-	border-bottom: var(--pointer-size) solid red;
+	border-bottom: var(--pointer-size) solid rgb(252, 55, 55);
 }
 .arrow-down {
-	border-top: var(--pointer-size) solid blue;
+	border-top: var(--pointer-size) solid rgb(61, 61, 255);
 }

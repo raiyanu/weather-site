@@ -44,7 +44,7 @@ body {
 	background: url(../assets/cloud-3.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position-x: 50%;
+	background-position-x: 0;
 	background-position-y: 100%;
 	color: white;
 }
@@ -185,6 +185,16 @@ body {
 	/* width: 100px; */
 	width: 40px;
 	margin-left: 10px;
+	animation: updown 1.5s ease-in-out infinite;
+}
+@keyframes updown {
+	0%,
+	100% {
+		transform: translateY(-3px);
+	}
+	50% {
+		transform: translateY(0px);
+	}
 }
 
 .right-set {

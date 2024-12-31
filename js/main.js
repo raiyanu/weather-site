@@ -2,56 +2,6 @@ import Weather from "./weather.js";
 import recommendPic from "./pic_recommend.js";
 const weather = new Weather();
 
-// weather.test();
-
-let TempWeather = {
-    "location": {
-        "name": "Pernambut",
-        "region": "Tamil Nadu",
-        "country": "India",
-        "lat": 12.9333,
-        "lon": 78.7167,
-        "tz_id": "Asia/Kolkata",
-        "localtime_epoch": 1735219961,
-        "localtime": "2024-12-26 19:02"
-    },
-    "current": {
-        "last_updated_epoch": 1735219800,
-        "last_updated": "2024-12-26 19:00",
-        "temp_c": 21,
-        "temp_f": 69.7,
-        "is_day": 0,
-        "condition": {
-            "text": "Mist",
-            "icon": "//cdn.weatherapi.com/weather/64x64/night/143.png",
-            "code": 1030
-        },
-        "wind_mph": 6.5,
-        "wind_kph": 10.4,
-        "wind_degree": 79,
-        "wind_dir": "E",
-        "pressure_mb": 1016,
-        "pressure_in": 29.99,
-        "precip_mm": 0.04,
-        "precip_in": 0,
-        "humidity": 94,
-        "cloud": 87,
-        "feelslike_c": 21,
-        "feelslike_f": 69.7,
-        "windchill_c": 21,
-        "windchill_f": 69.7,
-        "heatindex_c": 21,
-        "heatindex_f": 69.7,
-        "dewpoint_c": 20,
-        "dewpoint_f": 68,
-        "vis_km": 2,
-        "vis_miles": 1,
-        "uv": 0,
-        "gust_mph": 11.9,
-        "gust_kph": 19.1
-    }
-}
-
 function setLoading(toTurnOn) {
     toTurnOn ? document.getElementById('loader').classList.add("show") : setTimeout(() => {
         document.getElementById('loader').classList.remove("show")
@@ -73,7 +23,7 @@ function showToast(message = "an error occured") {
 export async function getWeather(location) {
     let suggestedCity = await weather.getCitySuggestion(location);
     if (suggestedCity.length <= 0) {
-        showToast(`<b>${location}</b>&nbsp; place doesn't exist in our database`);
+        showToast(`<b>${location}</b>&nbsp; doesn't exist in our database`);
         return;
     }
 
@@ -96,7 +46,7 @@ export async function getWeather(location) {
     }
     if (!(weatherInfo.current && weatherInfo.location)) {
         // TODO: ...
-        showToast("<em>Internal Error </em>");
+        showToast("<em>Internal Error</em>");
         setLoading(false);
         return;
     }
@@ -146,7 +96,7 @@ async function updateUi(weatherInfo) {
         document.getElementById("ui-visibility").innerHTML = `${weatherInfo.current.vis_km}km`;
         document.getElementById("ui-uv-index").innerHTML = `${weatherInfo.current.uv} Low`;
         document.getElementById("current-location-text").innerHTML = `${weatherInfo.location.name}, ${weatherInfo.location.region}`;
-        document.getElementById("bg-image").style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(./assets/condition/${recommendPic(weatherInfo.current.condition.text)})`;
+        document.getElementById("bg-image").style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.34)), url(./assets/condition/${recommendPic(weatherInfo.current.condition.text)})`;
         document.getElementById("ui-compass-arrow").style.setProperty('--rotation', `${weatherInfo.current.wind_degree}deg`);
         console.log(weatherInfo.location);
         if (weatherInfo.current.alerts && Array.isArray(weatherInfo.current.alerts) && weatherInfo.current.alerts.length > 0) {
@@ -164,45 +114,6 @@ async function updateUi(weatherInfo) {
 
 
 window.addEventListener('DOMContentLoaded', async () => {
-    // getUpdatedWeatherInfo(await weather.getUserCordinate());
-    let TempWeather = {
-        current: {
-            "last_updated_epoch": 1735292700,
-            "last_updated": "2024-12-27 15:15",
-            "temp_c": 24.8,
-            "temp_f": 76.7,
-            "is_day": 1,
-            "condition": {
-                "text": "Light rain shower",
-                "icon": "//cdn.weatherapi.com/weather/64x64/day/353.png",
-                "code": 1240
-            },
-            "wind_mph": 11.4,
-            "wind_kph": 18.4,
-            "wind_degree": 75,
-            "wind_dir": "ENE",
-            "pressure_mb": 1014,
-            "pressure_in": 29.94,
-            "precip_mm": 0.5,
-            "precip_in": 0.02,
-            "humidity": 80,
-            "cloud": 72,
-            "feelslike_c": 96.9,
-            "feelslike_f": 80.4,
-            "windchill_c": 24.8,
-            "windchill_f": 76.7,
-            "heatindex_c": 26.9,
-            "heatindex_f": 80.4,
-            "dewpoint_c": 21.2,
-            "dewpoint_f": 70.2,
-            "vis_km": 10,
-            "vis_miles": 6,
-            "uv": 1.5,
-            "gust_mph": 16.4,
-            "gust_kph": 26.4
-        }
-    }
-    // updateUi(TempWeather);
     await updateUiBasedByUserLocation()
 
     const form = document.querySelector('.search-form');
@@ -210,7 +121,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         try {
             event.preventDefault();
         } catch (error) {
-            // console.log(error);
+            console.log(error);
         }
         getWeather(event.target.location.value);
     });
@@ -232,6 +143,4 @@ window.addEventListener('DOMContentLoaded', async () => {
             location_suggestions_el.appendChild(suggested_item);
         }
     });
-
-
 })
